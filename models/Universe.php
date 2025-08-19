@@ -4,16 +4,21 @@ namespace app\models;
 
 class Universe
 {
-    private array $data;
+    private array $grid;
 
     public function __construct($size)
     {
-        $this->data = array_fill(0, $size, array_fill(0, $size, 0));
+        $this->grid = array_fill(0, $size, array_fill(0, $size, 0));
     }
 
-    public function getData()
+    public function getGrid()
     {
-        return $this->data;
+        return $this->grid;
+    }
+
+    public function setGrid(array $grid)
+    {
+        $this->grid = $grid;
     }
 
 }

@@ -10,5 +10,7 @@ class GameController extends Controller
     public function actionStart()
     {
         $game = new GameOfLife();
+
+        print_r($game->getUniverse());
     }
 }
