@@ -3,6 +3,7 @@
 namespace tests\unit\components;
 
 use app\components\GameOfLife;
+use app\models\Universe;
 use function PHPUnit\Framework\assertEquals;
 
 class GameOfLifeTest extends \Codeception\Test\Unit
@@ -29,5 +30,27 @@ class GameOfLifeTest extends \Codeception\Test\Unit
         $this->assertEquals(GameOfLife::CELL_ALIVE, $grid[13][12], 'Glider pattern 13:12 is invalid');
         $this->assertEquals(GameOfLife::CELL_ALIVE, $grid[13][13], 'Glider pattern 13:13 is invalid');
 
+    }
+
+    public function testPresenterOutputsCorrectGrid()
+    {
+        $game = $this->createMock(\app\components\GameOfLife::class);
+        $universe = $this->createMock(Universe::class);
+
+        $universe->method('getGrid')->willReturn([
+            [1, 0],
+            [0, 1]
+        ]);
+        $game->method('getUniverse')->willReturn($universe);
+
+        $presenter = new \app\components\GamePresenter();
+        $presenter->game = $game;
+
+        ob_start();
+        $presenter->present();
+        $output = ob_get_clean();
+
+        $expected = "*.\r\n.*\r\n";
+        $this->assertEquals($expected, $output);
     }
 }

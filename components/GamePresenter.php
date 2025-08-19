@@ -1,8 +1,6 @@
 <?php
 
-namespace app\commands;
-
-use app\components\GameOfLife;
+namespace app\components;
 
 class GamePresenter
 {

@@ -3,6 +3,7 @@
 namespace app\commands;
 
 use app\components\GameOfLife;
+use app\components\GamePresenter;
 use yii\console\Controller;
 
 class GameController extends Controller
