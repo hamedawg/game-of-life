@@ -11,6 +11,8 @@ class GameController extends Controller
     {
         $game = new GameOfLife();
 
-        print_r($game->getUniverse());
+        $gamePresenter = new GamePresenter();
+        $gamePresenter->game = $game;
+        $gamePresenter->present();
     }
 }

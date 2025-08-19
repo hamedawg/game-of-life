@@ -19,6 +19,7 @@ class GameOfLife
     }
 
     /**
+     * This method returns the universe of the game
      * @return Universe
      */
     public function getUniverse()
@@ -26,6 +27,10 @@ class GameOfLife
         return $this->universe;
     }
 
+    /**
+     * This method adds the
+     * @return void
+     */
     private function addGliderPatternToUniverse()
     {
         $grid = $this->universe->getGrid();
