@@ -23,6 +23,4 @@ class GamePresenter
             echo "\r\n";
         }
     }
-
-
 }
