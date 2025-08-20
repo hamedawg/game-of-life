@@ -36,7 +36,7 @@ tests/
 1. Clone the repository:
    ```bash
    git clone https://github.com/hamedawg/game-of-life.git
-   cd game-of-life-php
+   cd game-of-life
    ```
 
 2. Install dependencies:
