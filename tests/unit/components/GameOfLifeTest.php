@@ -10,15 +10,15 @@ class GameOfLifeTest extends \Codeception\Test\Unit
 {
     public function testUniverseInitialization()
     {
-        $game = new GameOfLife();
+        $game = new GameOfLife(3);
         $universe = $game->getUniverse();
         $grid = $universe->getGrid();
-        $this->assertCount(GameOfLife::SIZE, $grid, 'Universe grid should have ' . GameOfLife::SIZE . ' rows');
+        $this->assertCount(3, $grid, 'Universe grid should have ' . GameOfLife::SIZE . ' rows');
     }
 
     public function testAddGliderPatternToUniverse()
     {
-        $game = new GameOfLife();
+        $game = new GameOfLife(25);
         $universe = $game->getUniverse();
         $grid = $universe->getGrid();
 

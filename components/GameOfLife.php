@@ -6,15 +6,17 @@ use app\models\Universe;
 
 class GameOfLife
 {
+    private $size;
     const SIZE = 25;
     const CELL_ALIVE = 1;
     const CELL_DEAD = 0;
 
     private Universe $universe;
 
-    public function __construct()
+    public function __construct($size)
     {
-        $this->universe = new Universe(self::SIZE);
+        $this->size = $size;
+        $this->universe = new Universe($this->size);
         $this->addGliderPatternToUniverse();
     }
 
@@ -34,7 +36,7 @@ class GameOfLife
     private function addGliderPatternToUniverse()
     {
         $grid = $this->universe->getGrid();
-        $centerCol = $centerRow = round(static::SIZE / 2, 0, PHP_ROUND_HALF_DOWN);
+        $centerCol = $centerRow = round($this->size / 2, 0, PHP_ROUND_HALF_DOWN);
         $grid[$centerRow - 1][$centerCol] = static::CELL_ALIVE;
         $grid[$centerRow][$centerCol + 1] = static::CELL_ALIVE;
         $grid[$centerRow + 1][$centerCol - 1] = static::CELL_ALIVE;
@@ -47,8 +49,8 @@ class GameOfLife
     {
         $grid = $this->getUniverse()->getGrid();
         $newGrid = $grid;
-        for ($i = 0; $i < static::SIZE; $i++) {
-            for ($j = 0; $j < static::SIZE; $j++) {
+        for ($i = 0; $i < $this->size; $i++) {
+            for ($j = 0; $j < $this->size; $j++) {
                 $aliveNeighboursCount = $this->getAliveNeighboursCount($grid, $i, $j);
 
                 if ($grid[$i][$j] === static::CELL_ALIVE) {
