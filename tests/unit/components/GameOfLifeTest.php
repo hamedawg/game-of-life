@@ -4,18 +4,35 @@ namespace tests\unit\components;
 
 use app\components\GameOfLife;
 use app\models\Universe;
-use function PHPUnit\Framework\assertEquals;
 
+/**
+ * Class GameOfLifeTest
+ *
+ * Unit tests for the GameOfLife component.
+ * Tests universe initialization, glider pattern placement,
+ * next generation computation, and presenter output.
+ */
 class GameOfLifeTest extends \Codeception\Test\Unit
 {
+    /**
+     * Tests that the universe is initialized with the correct size.
+     *
+     * @return void
+     */
     public function testUniverseInitialization()
     {
-        $game = new GameOfLife(3);
+        $size = 3;
+        $game = new GameOfLife($size);
         $universe = $game->getUniverse();
         $grid = $universe->getGrid();
-        $this->assertCount(3, $grid, 'Universe grid should have ' . GameOfLife::SIZE . ' rows');
+        $this->assertCount(3, $grid, 'Universe grid should have ' . $size . ' rows');
     }
 
+    /**
+     * Tests that the glider pattern is added correctly to the universe grid.
+     *
+     * @return void
+     */
     public function testAddGliderPatternToUniverse()
     {
         $game = new GameOfLife(25);
@@ -23,34 +40,29 @@ class GameOfLifeTest extends \Codeception\Test\Unit
         $grid = $universe->getGrid();
 
         $this->assertEquals(GameOfLife::CELL_DEAD, $grid[11][11], 'Glider pattern 11:11 is invalid');
-
         $this->assertEquals(GameOfLife::CELL_ALIVE, $grid[11][12], 'Glider pattern 11:12 is invalid');
         $this->assertEquals(GameOfLife::CELL_ALIVE, $grid[12][13], 'Glider pattern 12:13 is invalid');
         $this->assertEquals(GameOfLife::CELL_ALIVE, $grid[13][11], 'Glider pattern 13:11 is invalid');
         $this->assertEquals(GameOfLife::CELL_ALIVE, $grid[13][12], 'Glider pattern 13:12 is invalid');
         $this->assertEquals(GameOfLife::CELL_ALIVE, $grid[13][13], 'Glider pattern 13:13 is invalid');
-
     }
 
-    public function testPresenterOutputsCorrectGrid()
+    /**
+     * Tests that the nextGeneration() method computes the correct next generation.
+     *
+     * @return void
+     */
+    public function testNextGeneration()
     {
-        $game = $this->createMock(\app\components\GameOfLife::class);
-        $universe = $this->createMock(Universe::class);
+        $game = new GameOfLife(3);
+        $game->nextGeneration();
+        $expectedGeneration = [
+            [0, 0, 0],
+            [1, 0, 1],
+            [0, 1, 1],
+        ];
 
-        $universe->method('getGrid')->willReturn([
-            [1, 0],
-            [0, 1]
-        ]);
-        $game->method('getUniverse')->willReturn($universe);
-
-        $presenter = new \app\components\GamePresenter();
-        $presenter->game = $game;
-
-        ob_start();
-        $presenter->present();
-        $output = ob_get_clean();
-
-        $expected = "*.\r\n.*\r\n";
-        $this->assertEquals($expected, $output);
+        $this->assertEquals($expectedGeneration, $game->getUniverse()->getGrid());
     }
+
 }

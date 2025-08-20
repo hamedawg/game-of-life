@@ -2,12 +2,24 @@
 
 namespace app\components;
 
+/**
+ * Class GamePresenter
+ *
+ * Responsible for rendering the Game of Life universe
+ * to the console. Converts the universe grid into a visual
+ * representation using "*" for alive cells and "." for dead cells.
+ */
 class GamePresenter
 {
+    /**
+     * @var GameOfLife The Game of Life instance to present
+     */
     public GameOfLife $game;
 
     /**
-     * This method write the universe grid on the console
+     * Prints the universe grid to the console.
+     * Each alive cell is represented as "*" and each dead cell as ".".
+     *
      * @return void
      */
     public function present()

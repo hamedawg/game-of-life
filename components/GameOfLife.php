@@ -4,15 +4,42 @@ namespace app\components;
 
 use app\models\Universe;
 
+/**
+ * Class GameOfLife
+ *
+ * Implements Conway's Game of Life.
+ * This class manages the grid (universe), initializes it with a predefined pattern,
+ * and applies the rules of the Game of Life to evolve the universe
+ * from one generation to the next.
+ */
 class GameOfLife
 {
+    /**
+     * @var int The size of the universe (grid is size x size)
+     */
     private $size;
-    const SIZE = 25;
+
+    /**
+     * Represents a living cell
+     */
     const CELL_ALIVE = 1;
+
+    /**
+     * Represents a dead cell
+     */
     const CELL_DEAD = 0;
 
+    /**
+     * @var Universe The universe instance that holds the grid
+     */
     private Universe $universe;
 
+    /**
+     * GameOfLife constructor.
+     * Initializes the universe with the given size and adds a glider pattern at the center.
+     *
+     * @param int $size The size of the universe (grid dimensions)
+     */
     public function __construct($size)
     {
         $this->size = $size;
@@ -21,7 +48,8 @@ class GameOfLife
     }
 
     /**
-     * This method returns the universe of the game
+     * Returns the universe instance of the game.
+     *
      * @return Universe
      */
     public function getUniverse()
@@ -30,7 +58,9 @@ class GameOfLife
     }
 
     /**
-     * This method adds the
+     * Adds a predefined "glider" pattern into the center of the universe.
+     * This serves as the starting state of the simulation.
+     *
      * @return void
      */
     private function addGliderPatternToUniverse()
@@ -45,6 +75,16 @@ class GameOfLife
         $this->universe->setGrid($grid);
     }
 
+    /**
+     * Evolves the universe by one generation according to the Game of Life rules.
+     * Updates the grid by applying:
+     *  - Underpopulation
+     *  - Overpopulation
+     *  - Survival
+     *  - Reproduction
+     *
+     * @return void
+     */
     public function nextGeneration()
     {
         $grid = $this->getUniverse()->getGrid();
@@ -72,6 +112,14 @@ class GameOfLife
         $this->universe->setGrid($newGrid);
     }
 
+    /**
+     * Counts the number of living neighbors around a given cell.
+     *
+     * @param array $grid The current universe grid
+     * @param int $row The row index of the cell
+     * @param int $col The column index of the cell
+     * @return int The count of alive neighboring cells
+     */
     private function getAliveNeighboursCount(array $grid, int $row, int $col): int
     {
         $neighborsOffset = [
