@@ -1,7 +1,7 @@
 # Game of Life (PHP Implementation)
 
 This project is an implementation of **Conway’s Game of Life** in PHP.  
-It demonstrates the use of Object-Oriented Programming (OOP), Yii2 framework, unit testing with **Codeception / PHPUnit**, and a simple presenter for visualizing the game grid in the console.
+It demonstrates the use of Object-Oriented Programming (OOP), Yii2 framework, unit testing with **Codeception**, and a simple presenter for visualizing the game grid in the console.
 
 ---
 
@@ -28,7 +28,7 @@ tests/
 ## ⚙️ Requirements
 - PHP 8.0+
 - Composer
-- Codeception / PHPUnit for testing
+- Codeception
 
 ---
 
@@ -73,12 +73,6 @@ Unit tests are written with **Codeception (PHPUnit)**. To run tests:
 
 ```bash
 vendor/bin/codecept run
-```
-
-or (if using plain PHPUnit):
-
-```bash
-vendor/bin/phpunit --testdox
 ```
 
 Example Test Output:
